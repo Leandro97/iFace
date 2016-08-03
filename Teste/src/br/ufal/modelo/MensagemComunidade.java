@@ -1,5 +1,7 @@
 package br.ufal.modelo;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,13 +9,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mensagem_comunidade")
-public class MensagemComunidade {
+@Table(name = "Mensagem_comunidade")
+public class MensagemComunidade implements Serializable{
+	
+	private String conteudo;
 	
 	@Id
 	@GeneratedValue
 	private int id;
-	private String conteudo;
 	
 	@ManyToOne
 	private Usuario emissor;
@@ -28,14 +31,6 @@ public class MensagemComunidade {
 		this.emissor = emissor;
 		this.conteudo = conteudo;
 		this.receptor = receptor;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getConteudo() {

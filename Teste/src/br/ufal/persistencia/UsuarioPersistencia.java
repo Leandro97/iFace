@@ -1,5 +1,7 @@
 package br.ufal.persistencia;
 
+import java.util.List;
+
 import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
@@ -42,7 +44,7 @@ public class UsuarioPersistencia extends Persistencia{
 			manager = factory.createEntityManager();
 			
 			try {
-				manager.find(Usuario.class, id);
+				user = manager.find(Usuario.class, id);
 				manager.close();
 			}  catch (HibernateException e) {
 				e.printStackTrace();
@@ -55,18 +57,22 @@ public class UsuarioPersistencia extends Persistencia{
 		//retorna um usuário ao receber seu username
 			public Usuario getUsuarioByUsername(String username) {
 				manager = factory.createEntityManager();
-				Usuario user = null;
+				List<Usuario> users = null;
 				try {
-					user = (Usuario) manager.createQuery("SELECT u FROM Usuario u WHERE u.username = :username")
+					users = (List<Usuario>) manager.createQuery("SELECT u FROM Usuario u WHERE u.username = :username")
 				    .setParameter("username", username)
-				    .getResultList().get(0);
+				    .getResultList();
 					manager.close();
 				}  catch (HibernateException e) {
 					e.printStackTrace();
 					manager.getTransaction().rollback();
 				}	
 				
-				return user;
+				if(users.size() == 0) {
+					return null;
+				} else {
+					return users.get(0);
+				}
 			}
 		
 		//retorna um usuário se a combinação de username e senha estiver cadastrada

@@ -3,20 +3,20 @@ package br.ufal.modelo;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 //Não mapeada
 @Entity
-@Table(name = "comunidade")
 public class Comunidade {
 	@Id
 	@GeneratedValue
 	private int id;
+	@Column(unique = true)
 	private String nome;
 	private String descricao;
 	
@@ -25,6 +25,9 @@ public class Comunidade {
 
 	@OneToMany(mappedBy = "receptor", cascade = CascadeType.ALL)
 	private List<MensagemComunidade> mensagensRecebidas;
+	
+	@OneToMany(mappedBy = "comunidade", cascade = CascadeType.ALL)
+	private List<ComunidadeUsuario> participantes;
 	
 	public Comunidade() {
 	}
@@ -60,5 +63,27 @@ public class Comunidade {
 		this.descricao = descricao;
 	}
 
+	public Usuario getDono() {
+		return dono;
+	}
 
+	public void setDono(Usuario dono) {
+		this.dono = dono;
+	}
+
+	public List<MensagemComunidade> getMensagensRecebidas() {
+		return mensagensRecebidas;
+	}
+
+	public void setMensagensRecebidas(List<MensagemComunidade> mensagensRecebidas) {
+		this.mensagensRecebidas = mensagensRecebidas;
+	}
+
+	public List<ComunidadeUsuario> getParticipantes() {
+		return participantes;
+	}
+
+	public void setParticipantes(List<ComunidadeUsuario> participantes) {
+		this.participantes = participantes;
+	}
 }

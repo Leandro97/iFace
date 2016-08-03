@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public abstract class Persistencia {
-	EntityManagerFactory factory = Persistence.createEntityManagerFactory("iface");;
-	EntityManager manager;
+	protected EntityManagerFactory factory = Persistence.createEntityManagerFactory("iface");;
+	protected EntityManager manager;
+	
 }

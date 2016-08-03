@@ -1,8 +1,12 @@
 package br.ufal.persistencia;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
 
 import br.ufal.modelo.Comunidade;
+import br.ufal.modelo.ComunidadeUsuario;
+import br.ufal.modelo.Usuario;
 
 
 public class ComunidadePersistencia extends Persistencia{
@@ -33,40 +37,76 @@ public class ComunidadePersistencia extends Persistencia{
 				e.printStackTrace();
 				manager.getTransaction().rollback();
 			}	
+			
+			incluirMembro(com, com.getDono(), true);
 		}
 	
 	//retorna um usuário ao receber seu id
+		public Comunidade getComunidadeById(int id) {
+			Comunidade com = null;
+			manager = factory.createEntityManager();
+			
+			try {
+				com = manager.find(Comunidade.class, id);
+				manager.close();
+			}  catch (HibernateException e) {
+				e.printStackTrace();
+				manager.getTransaction().rollback();
+			}	
+			
+			return com;
+		}
+
 		public Comunidade getComunidadeByNome(String nome) {
 			manager = factory.createEntityManager();
-			Comunidade com = null;
+			List<Comunidade> coms = null;
 			try {
-				com = (Comunidade) manager.createQuery("SELECT c FROM Comunidade c WHERE c.nome = :nome")
+				coms = (List<Comunidade>) manager.createQuery("SELECT c FROM Comunidade c WHERE c.nome = :nome")
 				.setParameter("nome", nome)
-				.getResultList().get(0);
+				.getResultList();
 				manager.close();
 			}  catch (HibernateException e) {
 				e.printStackTrace();
 				manager.getTransaction().rollback();
 			}	
 			
-			return com;
-		}
-
-		public Comunidade getComunidadeByNome(int id) {
-			manager = factory.createEntityManager();
-			Comunidade com = null;
-			try {
-				com = (Comunidade) manager.createQuery("SELECT c FROM Comunidade c WHERE c.id = :id")
-				.setParameter("id", id)
-				.getResultList().get(0);
-				manager.close();
-			}  catch (HibernateException e) {
-				e.printStackTrace();
-				manager.getTransaction().rollback();
-			}	
-			
-			return com;
+			if(coms.size() == 0) {
+				return null;
+			} else {
+				return coms.get(0);
+			}
 		}
 		
-
+		//inclui usuário em uma comunidade
+		public void incluirMembro(Comunidade com, Usuario user, boolean confirmado) {
+			manager = factory.createEntityManager();
+			ComunidadeUsuario uc = new ComunidadeUsuario(com, user, confirmado);
+			try {
+				manager.getTransaction().begin();
+				manager.persist(uc);
+				manager.getTransaction().commit();
+				manager.close();
+			}  catch (HibernateException e) {
+				e.printStackTrace();
+				manager.getTransaction().rollback();
+			}	
+		}
+		
+		public List<ComunidadeUsuario> getMembrosPendentes(Comunidade com) {
+			List<ComunidadeUsuario> pendencias = null;
+			manager = factory.createEntityManager();
+			
+			try {
+				pendencias = (List<ComunidadeUsuario>) manager.createQuery("SELECT cu FROM ComunidadeUsuario cu" +
+						" WHERE cu.comunidade = :comunidade AND cu.confirmado = 0")
+				.setParameter("comunidade", com)
+				.getResultList();
+				manager.close();
+			}  catch (HibernateException e) {
+				e.printStackTrace();
+				manager.getTransaction().rollback();
+			}
+			
+			return pendencias;
+		}
 }

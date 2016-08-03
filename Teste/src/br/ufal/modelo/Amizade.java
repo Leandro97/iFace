@@ -1,15 +1,7 @@
 package br.ufal.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "amizade")
 public class Amizade {
-	@Id
-	@GeneratedValue
 	private int id;
 	private int idAmigo1;
 	private int idAmigo2;

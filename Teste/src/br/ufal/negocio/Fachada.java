@@ -1,6 +1,9 @@
 package br.ufal.negocio;
 
+import java.util.List;
+
 import br.ufal.modelo.Comunidade;
+import br.ufal.modelo.ComunidadeUsuario;
 import br.ufal.modelo.Usuario;
 import br.ufal.persistencia.ComunidadePersistencia;
 import br.ufal.persistencia.MensagemPersistencia;
@@ -64,7 +67,16 @@ public class Fachada {
 		
 	//retorna um usuário ao receber seu id
 		public Comunidade getComunidadeById(int id) {
-			return ComunidadePersistencia.getInstance().getComunidadeByNome(id);
+			return ComunidadePersistencia.getInstance().getComunidadeById(id);
+		}
+		
+	//inclui usuário em uma comunidade
+		public void incluirMembro(Comunidade com, Usuario user) {
+			ComunidadePersistencia.getInstance().incluirMembro(com, user, false);
+		}	
+	//retorna lista de usuários que ainda não foram aceitos em uma comunidade	
+		public List<ComunidadeUsuario> getMembrosPendentes(Comunidade com) {
+			return ComunidadePersistencia.getInstance().getMembrosPendentes(com);
 		}
 		
 	//Fim do bloco de Comunidade

@@ -8,10 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "usuario")
 public class Usuario {
 	
 	@Id
@@ -33,6 +31,9 @@ public class Usuario {
 	
 	@OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
 	private List<Comunidade> comunidadesQuePossuo;
+	
+	@OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
+	private List<ComunidadeUsuario> comunidadesQueParticipo;
 	
 	public Usuario() {
 	}
@@ -90,5 +91,29 @@ public class Usuario {
 
 	public void setMensagensUEnviadas(List<MensagemUsuario> mensagensUEnviadas) {
 		this.mensagensUEnviadas = mensagensUEnviadas;
+	}
+
+	public List<MensagemComunidade> getMensagensCEnviadas() {
+		return mensagensCEnviadas;
+	}
+
+	public void setMensagensCEnviadas(List<MensagemComunidade> mensagensCEnviadas) {
+		this.mensagensCEnviadas = mensagensCEnviadas;
+	}
+
+	public List<Comunidade> getComunidadesQuePossuo() {
+		return comunidadesQuePossuo;
+	}
+
+	public void setComunidadesQuePossuo(List<Comunidade> comunidadesQuePossuo) {
+		this.comunidadesQuePossuo = comunidadesQuePossuo;
+	}
+
+	public List<ComunidadeUsuario> getComunidadesQueParticipo() {
+		return comunidadesQueParticipo;
+	}
+
+	public void setComunidadesQueParticipo(List<ComunidadeUsuario> comunidadesQueParticipo) {
+		this.comunidadesQueParticipo = comunidadesQueParticipo;
 	}
 }
