@@ -2,6 +2,7 @@ package br.ufal.persistencia;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
@@ -32,11 +33,14 @@ public class UsuarioPersistencia extends Persistencia{
 				manager.getTransaction().begin();
 				manager.persist(user);
 				manager.getTransaction().commit();
-				manager.close();
 			}  catch (HibernateException e) {
 				e.printStackTrace();
 				manager.getTransaction().rollback();
-			}	
+			} catch (PersistenceException e) {
+				System.out.println("Usuário já cadastrado!");
+			} finally {
+				manager.close();
+			}
 		}
 		
 		//Retorna um usuário ao receber seu id

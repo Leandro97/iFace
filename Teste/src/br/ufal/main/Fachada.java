@@ -1,4 +1,4 @@
-package br.ufal.negocio;
+package br.ufal.main;
 
 import java.util.List;
 

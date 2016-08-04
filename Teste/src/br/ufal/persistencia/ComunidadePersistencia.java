@@ -2,6 +2,8 @@ package br.ufal.persistencia;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.hibernate.HibernateException;
 
 import br.ufal.modelo.Comunidade;
@@ -32,13 +34,16 @@ public class ComunidadePersistencia extends Persistencia{
 				manager.getTransaction().begin();
 				manager.persist(com);
 				manager.getTransaction().commit();
-				manager.close();
+				incluirMembro(com, com.getDono(), true);
 			}  catch (HibernateException e) {
 				e.printStackTrace();
 				manager.getTransaction().rollback();
-			}	
+			} catch (PersistenceException e) {
+				System.out.println("Comunidade já cadastrada!");
+			} finally {
+				manager.close();
+			}
 			
-			incluirMembro(com, com.getDono(), true);
 		}
 	
 	//Retorna um usuário ao receber seu id
