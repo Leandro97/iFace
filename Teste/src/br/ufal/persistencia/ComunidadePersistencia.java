@@ -93,7 +93,7 @@ public class ComunidadePersistencia extends Persistencia{
 			}	
 		}
 		
-		//Retorna lista de usuários que ainda não foram aceitos em uma comunidade
+	//Retorna lista de usuários que ainda não foram aceitos em uma comunidade
 		public List<ComunidadeUsuario> getMembrosPendentes(Comunidade com) {
 			List<ComunidadeUsuario> pendencias = null;
 			manager = factory.createEntityManager();
@@ -110,5 +110,39 @@ public class ComunidadePersistencia extends Persistencia{
 			}
 			
 			return pendencias;
+		}
+		
+	//Aceita pedido de amizade de um determinado usuário
+		public void aceitarPedidos(ComunidadeUsuario cu) {
+			manager = factory.createEntityManager();
+			try {
+				cu.setConfirmado(true);
+				manager.getTransaction().begin();
+				manager.merge(cu);
+				manager.getTransaction().commit();
+				manager.close();
+			}  catch (HibernateException e) {
+				e.printStackTrace();
+				manager.getTransaction().rollback();
+			}
+		}
+
+	//Retorna lista de membros de uma comunidade
+		public List<Usuario> getMembros(Comunidade com) {
+			List<Usuario> membros = null;
+			manager = factory.createEntityManager();
+			
+			try {
+				membros = (List<Usuario>) manager.createQuery("SELECT cu.participante FROM ComunidadeUsuario cu" +
+						" WHERE cu.comunidade = :comunidade AND cu.confirmado = 1")
+				.setParameter("comunidade", com)
+				.getResultList();
+				manager.close();
+			}  catch (HibernateException e) {
+				e.printStackTrace();
+				manager.getTransaction().rollback();
+			}
+			
+			return membros;
 		}
 }

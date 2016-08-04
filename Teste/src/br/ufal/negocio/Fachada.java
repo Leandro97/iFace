@@ -58,7 +58,7 @@ public class Fachada {
 		}
 		
 	//Aceita pedido de amizade de um determinado usuário
-		public void aceitarPedidos(Amizade am) {
+		public void aceitarPedidoAmizade(Amizade am) {
 			UsuarioPersistencia.getInstance().aceitarPedidos(am);
 		}
 		
@@ -99,6 +99,16 @@ public class Fachada {
 	//Retorna lista de usuários que ainda não foram aceitos em uma comunidade	
 		public List<ComunidadeUsuario> getMembrosPendentes(Comunidade com) {
 			return ComunidadePersistencia.getInstance().getMembrosPendentes(com);
+		}
+	
+	//Aceita pedido de inclusão na comunidade de um determinado usuário
+		public void aceitarPedidoComunidade(ComunidadeUsuario cu) {
+			ComunidadePersistencia.getInstance().aceitarPedidos(cu);
+		}
+		
+	//Retorna lista de membros de uma comunidade
+		public List<Usuario> getMembros(Comunidade com) {
+			return ComunidadePersistencia.getInstance().getMembros(com);
 		}
 		
 	//Fim do bloco de Comunidade

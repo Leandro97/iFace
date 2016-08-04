@@ -2,7 +2,7 @@ package br.ufal.negocio;
 
 import java.util.List;
 
-import br.ufal.modelo.Usuario;
+import br.ufal.modelo.ComunidadeUsuario;
 
 public class Main {
 	public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class Main {
 //			System.out.println(am.getSolicitado().getNome() + ". " + am.getSolicitante().getNome());
 //		}
 //		
-//		Fachada.getInstance().aceitarPedidos(amizades.get(0));
+//		Fachada.getInstance().aceitaPedidosAmizade(amizades.get(0));
 //		
 //		System.out.println("---");
 //		
@@ -41,17 +41,38 @@ public class Main {
 //			System.out.println(am.getSolicitado().getNome() + ". " + am.getSolicitante().getNome());
 //		}
 //
-		List<Usuario> amigos =  Fachada.getInstance().getAmigos(Fachada.getInstance().getUsuarioByUsername("emissor"));
-		for(Usuario user : amigos) {
-			System.out.println(user.getNome());
-		}
+//		List<Usuario> amigos =  Fachada.getInstance().getAmigos(Fachada.getInstance().getUsuarioByUsername("dono"));
+//		for(Usuario user : amigos) {
+//			System.out.println(user.getNome());
+//		}
 //			
 //		Comunidade com = new Comunidade("Teste 1", "Teste 1 bem massa", Fachada.getInstance().getUsuarioByUsername("dono"));
 //		Fachada.getInstance().salvarComunidade(com);
 //		
 //		Fachada.getInstance().incluirMembro(Fachada.getInstance().getComunidadeByNome("Teste 1"), Fachada.getInstance().getUsuarioByUsername("emissor"));		
 //		Fachada.getInstance().incluirMembro(Fachada.getInstance().getComunidadeByNome("Teste 1"), Fachada.getInstance().getUsuarioByUsername("emissor2"));	
+//		
+		List<ComunidadeUsuario> pendencias = Fachada.getInstance().getMembrosPendentes(Fachada.getInstance().getComunidadeByNome("Teste 1"));
+//		
+//		for(ComunidadeUsuario cu : pendencias) {
+//			System.out.println(cu.getComunidade().getNome() + ". " + cu.getParticipante().getNome());
+//		}
+//		
+//		Fachada.getInstance().aceitarPedidoComunidade(pendencias.get(0));
+//		
+//		System.out.println("---");
+//		
+//		pendencias = Fachada.getInstance().getMembrosPendentes(Fachada.getInstance().getComunidadeByNome("Teste 1"));
+//		
+//		for(ComunidadeUsuario cu : pendencias) {
+//			System.out.println(cu.getComunidade().getNome() + ". " + cu.getParticipante().getNome());
+//		}
 //	
+//		System.out.println("Aqui: " + Fachada.getInstance().getComunidadeByNome("Teste 1").getDono().getNome());
+//		List<Usuario> membros =  Fachada.getInstance().getMembros(Fachada.getInstance().getComunidadeByNome("Teste 1"));
+//		for(Usuario user : membros) {
+//			System.out.println(user.getNome());
+//		}	
 //		Fachada.getInstance().mensagemParaUsuario(Fachada.getInstance().getUsuarioByUsername("emissor3"), Fachada.getInstance().getUsuarioByUsername("emissor"), "Usuário para Usuário");
 //	
 //		Fachada.getInstance().mensagemParaComunidade(Fachada.getInstance().getUsuarioByUsername("emissor"), Fachada.getInstance().getComunidadeByNome("Teste 1"), "Usuário para Comunidade");
