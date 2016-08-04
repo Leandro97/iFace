@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 
+import br.ufal.modelo.Amizade;
 import br.ufal.modelo.Usuario;
 
 public class UsuarioPersistencia extends Persistencia{
@@ -23,7 +24,7 @@ public class UsuarioPersistencia extends Persistencia{
 		return instance;
 	}
 	
-	//persiste um usuário no banco
+	//Persiste um usuário no banco
 		public void salvarUsuario(Usuario user) {
 			manager = factory.createEntityManager();
 			
@@ -38,7 +39,7 @@ public class UsuarioPersistencia extends Persistencia{
 			}	
 		}
 		
-		//retorna um usuário ao receber seu id
+		//Retorna um usuário ao receber seu id
 		public Usuario getUsuarioById(int id) {
 			Usuario user = null;
 			manager = factory.createEntityManager();
@@ -54,7 +55,7 @@ public class UsuarioPersistencia extends Persistencia{
 			return user;
 		}
 		
-		//retorna um usuário ao receber seu username
+		//Retorna um usuário ao receber seu username
 			public Usuario getUsuarioByUsername(String username) {
 				manager = factory.createEntityManager();
 				List<Usuario> users = null;
@@ -75,7 +76,7 @@ public class UsuarioPersistencia extends Persistencia{
 				}
 			}
 		
-		//retorna um usuário se a combinação de username e senha estiver cadastrada
+		//Retorna um usuário se a combinação de username e senha estiver cadastrada
 		public Usuario login(String username, String senha) {
 			manager = factory.createEntityManager();
 			Usuario user = null;
@@ -93,18 +94,95 @@ public class UsuarioPersistencia extends Persistencia{
 			return user;
 		}
 		
-		//deleta instância de usuário no banco (Tem que implementar direitinho)
-		public void deletarUsuario(Usuario user) {
-			manager = factory.createEntityManager();
-			manager.getTransaction().begin();
-			Query query = manager.createQuery("DELETE FROM Usuario WHERE id = 6");
-			try {
-				query.executeUpdate();
-				manager.getTransaction().commit();
-				manager.close();
-			}  catch (HibernateException e) {
-				e.printStackTrace();
-				manager.getTransaction().rollback();
-			}	
-		}
+		//Envia pedido de amizade para um usuário
+			public void enviarPedidoDeAmizade(Usuario solicitante, Usuario solicitado, boolean confirmado) {
+				manager = factory.createEntityManager();
+				Amizade amizade = new Amizade(solicitante, solicitado, confirmado);
+				try {
+					manager.getTransaction().begin();
+					manager.persist(amizade);
+					manager.getTransaction().commit();
+					manager.close();
+				}  catch (HibernateException e) {
+					e.printStackTrace();
+					manager.getTransaction().rollback();
+				}	
+			}
+			
+		//Retorna lista de pedidos que ainda não foram aceitos
+			public List<Amizade> getPedidosPendentes(Usuario solicitado) {
+				List<Amizade> pendencias = null;
+				manager = factory.createEntityManager();
+				
+				try {
+					pendencias = (List<Amizade>) manager.createQuery("SELECT am FROM Amizade am" +
+							" WHERE am.solicitado = :user AND am.confirmado = 0")
+					.setParameter("user", solicitado)
+					.getResultList();
+					manager.close();
+				}  catch (HibernateException e) {
+					e.printStackTrace();
+					manager.getTransaction().rollback();
+				}
+				
+				return pendencias;
+			}
+			
+		//Aceita pedido de amizade de um determinado usuário
+			public void aceitarPedidos(Amizade am) {
+				manager = factory.createEntityManager();
+				try {
+					am.setConfirmado(true);
+					manager.getTransaction().begin();
+					manager.merge(am);
+					manager.getTransaction().commit();
+					manager.close();
+				}  catch (HibernateException e) {
+					e.printStackTrace();
+					manager.getTransaction().rollback();
+				}
+			}
+			
+		//Retorna lista de amigos de usuário
+			public List<Usuario> getAmigos(Usuario user) {
+				List<Usuario> amigos1 = null;
+				List<Usuario> amigos2 = null;
+				manager = factory.createEntityManager();
+					
+				try {
+				
+					amigos1 = (List<Usuario>) manager.createQuery("SELECT am.solicitante FROM Amizade am" +
+					" WHERE am.solicitado = :user AND am.confirmado = 1")
+					.setParameter("user", user)
+					.getResultList();
+					
+					amigos2 = (List<Usuario>) manager.createQuery("SELECT am.solicitado FROM Amizade am" +
+							" WHERE am.solicitante = :user AND am.confirmado = 1")
+							.setParameter("user", user)
+							.getResultList();
+					
+					amigos1.addAll(amigos2);
+					manager.close();
+				}  catch (HibernateException e) {
+					e.printStackTrace();
+					manager.getTransaction().rollback();
+				}
+				
+				return amigos1;
+			}
+			
+		//Deleta instância de usuário no banco (Tem que implementar direitinho)
+			public void deletarUsuario(Usuario user) {
+				manager = factory.createEntityManager();
+				manager.getTransaction().begin();
+				Query query = manager.createQuery("DELETE FROM Usuario WHERE id = 6");
+				try {
+					query.executeUpdate();
+					manager.getTransaction().commit();
+					manager.close();
+				}  catch (HibernateException e) {
+					e.printStackTrace();
+					manager.getTransaction().rollback();
+				}	
+			}
 }

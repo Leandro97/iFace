@@ -1,10 +1,8 @@
 package br.ufal.negocio;
 
+import java.util.List;
 
-
-
-
-
+import br.ufal.modelo.Usuario;
 
 public class Main {
 	public static void main(String[] args) {
@@ -21,6 +19,33 @@ public class Main {
 //		Fachada.getInstance().salvarUsuario(ur);
 //		Fachada.getInstance().salvarUsuario(um);
 //		
+//		Fachada.getInstance().enviarPedidoDeAmizade(Fachada.getInstance().getUsuarioByUsername("emissor"), Fachada.getInstance().getUsuarioByUsername("emissor2"), false);
+//		Fachada.getInstance().enviarPedidoDeAmizade(Fachada.getInstance().getUsuarioByUsername("emissor3"), Fachada.getInstance().getUsuarioByUsername("emissor2"), false);
+//		Fachada.getInstance().enviarPedidoDeAmizade(Fachada.getInstance().getUsuarioByUsername("dono"), Fachada.getInstance().getUsuarioByUsername("emissor2"), false);
+//		Fachada.getInstance().enviarPedidoDeAmizade(Fachada.getInstance().getUsuarioByUsername("Droogie123"), Fachada.getInstance().getUsuarioByUsername("emissor2"), false);
+//		Fachada.getInstance().enviarPedidoDeAmizade(Fachada.getInstance().getUsuarioByUsername("emissor2"), Fachada.getInstance().getUsuarioByUsername("emissor"), false);
+//		
+//		List<Amizade> amizades = Fachada.getInstance().getPedidosPendentes(Fachada.getInstance().getUsuarioByUsername("emissor2"));
+//		
+//		for(Amizade am : amizades) {
+//			System.out.println(am.getSolicitado().getNome() + ". " + am.getSolicitante().getNome());
+//		}
+//		
+//		Fachada.getInstance().aceitarPedidos(amizades.get(0));
+//		
+//		System.out.println("---");
+//		
+//		amizades = Fachada.getInstance().getPedidosPendentes(Fachada.getInstance().getUsuarioByUsername("emissor2"));
+//		
+//		for(Amizade am : amizades) {
+//			System.out.println(am.getSolicitado().getNome() + ". " + am.getSolicitante().getNome());
+//		}
+//
+		List<Usuario> amigos =  Fachada.getInstance().getAmigos(Fachada.getInstance().getUsuarioByUsername("emissor"));
+		for(Usuario user : amigos) {
+			System.out.println(user.getNome());
+		}
+//			
 //		Comunidade com = new Comunidade("Teste 1", "Teste 1 bem massa", Fachada.getInstance().getUsuarioByUsername("dono"));
 //		Fachada.getInstance().salvarComunidade(com);
 //		

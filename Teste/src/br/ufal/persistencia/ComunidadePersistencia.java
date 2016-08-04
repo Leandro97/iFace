@@ -24,7 +24,7 @@ public class ComunidadePersistencia extends Persistencia{
 		return instance;
 	}
 	
-	//persiste uma comunidade no banco
+	//Persiste uma comunidade no banco
 		public void salvarComunidade(Comunidade com) {
 			manager = factory.createEntityManager();
 					
@@ -41,7 +41,7 @@ public class ComunidadePersistencia extends Persistencia{
 			incluirMembro(com, com.getDono(), true);
 		}
 	
-	//retorna um usuário ao receber seu id
+	//Retorna um usuário ao receber seu id
 		public Comunidade getComunidadeById(int id) {
 			Comunidade com = null;
 			manager = factory.createEntityManager();
@@ -56,7 +56,8 @@ public class ComunidadePersistencia extends Persistencia{
 			
 			return com;
 		}
-
+	
+	//Retorna uma comunidade ao receber seu nome	
 		public Comunidade getComunidadeByNome(String nome) {
 			manager = factory.createEntityManager();
 			List<Comunidade> coms = null;
@@ -77,7 +78,7 @@ public class ComunidadePersistencia extends Persistencia{
 			}
 		}
 		
-		//inclui usuário em uma comunidade
+	//Inclui usuário em uma comunidade
 		public void incluirMembro(Comunidade com, Usuario user, boolean confirmado) {
 			manager = factory.createEntityManager();
 			ComunidadeUsuario uc = new ComunidadeUsuario(com, user, confirmado);
@@ -92,6 +93,7 @@ public class ComunidadePersistencia extends Persistencia{
 			}	
 		}
 		
+		//Retorna lista de usuários que ainda não foram aceitos em uma comunidade
 		public List<ComunidadeUsuario> getMembrosPendentes(Comunidade com) {
 			List<ComunidadeUsuario> pendencias = null;
 			manager = factory.createEntityManager();

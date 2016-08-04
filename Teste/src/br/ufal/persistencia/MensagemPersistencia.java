@@ -21,7 +21,7 @@ public class MensagemPersistencia extends Persistencia{
 		return instance;
 	}
 	
-	//envia mensagens de usuário para usuário
+	//Envia mensagens de usuário para usuário
 		public void mensagemParaUsuario(Usuario emissor, Usuario receptor, String conteudo) {
 			MensagemUsuario msg = new MensagemUsuario(conteudo, emissor, receptor);
 			manager = factory.createEntityManager();
@@ -34,7 +34,7 @@ public class MensagemPersistencia extends Persistencia{
 			}
 		}
 	
-	//envia mensagens de usuário para usuário
+	//Envia mensagens de usuário para usuário
 		public void mensagemParaComunidade(Usuario emissor, Comunidade receptor, String conteudo) {
 			MensagemComunidade msg = new MensagemComunidade(emissor, receptor, conteudo);
 			manager = factory.createEntityManager();

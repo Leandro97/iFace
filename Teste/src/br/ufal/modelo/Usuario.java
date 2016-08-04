@@ -35,6 +35,12 @@ public class Usuario {
 	@OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
 	private List<ComunidadeUsuario> comunidadesQueParticipo;
 	
+	@OneToMany(mappedBy = "solicitante", cascade = CascadeType.ALL)
+	private List<Amizade> pedidosEnviados;
+	
+	@OneToMany(mappedBy = "solicitado", cascade = CascadeType.ALL)
+	private List<Amizade> pedidosRecebidos;
+	
 	public Usuario() {
 	}
 	

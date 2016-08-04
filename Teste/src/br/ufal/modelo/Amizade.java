@@ -1,41 +1,53 @@
 package br.ufal.modelo;
 
+import java.io.Serializable;
 
-public class Amizade {
-	private int id;
-	private int idAmigo1;
-	private int idAmigo2;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Amizade implements Serializable{
+	
+	@Id
+	@ManyToOne
+	private Usuario solicitante;
+	
+	@Id
+	@ManyToOne
+	private Usuario solicitado;
+	boolean confirmado;
 	
 	public Amizade() {
 	}
 
-	public Amizade(int idAmigo1, int idAmigo2) {
-		this.idAmigo1 = idAmigo1;
-		this.idAmigo2 = idAmigo2;
+	public Amizade(Usuario solicitante, Usuario solicitado, boolean confirmado) {
+		this.solicitante = solicitante;
+		this.solicitado = solicitado;
+		this.confirmado = confirmado;
 	}
 
-	public int getId() {
-		return id;
+	public Usuario getSolicitante() {
+		return solicitante;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setSolicitante(Usuario solicitante) {
+		this.solicitante = solicitante;
 	}
 
-	public int getIdAmigo1() {
-		return idAmigo1;
+	public Usuario getSolicitado() {
+		return solicitado;
 	}
 
-	public void setIdAmigo1(int idAmigo1) {
-		this.idAmigo1 = idAmigo1;
+	public void setSolicitado(Usuario solicitado) {
+		this.solicitado = solicitado;
 	}
 
-	public int getIdAmigo2() {
-		return idAmigo2;
+	public boolean isConfirmado() {
+		return confirmado;
 	}
 
-	public void setIdAmigo2(int idAmigo2) {
-		this.idAmigo2 = idAmigo2;
-	}
-	
+	public void setConfirmado(boolean confirmado) {
+		this.confirmado = confirmado;
+	}	
 }
