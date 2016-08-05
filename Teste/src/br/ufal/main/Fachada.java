@@ -32,14 +32,9 @@ public class Fachada {
 			UsuarioPersistencia.getInstance().salvarUsuario(user);
 		}
 	
-	//retorna um usuário ao receber seu id
-		public Usuario getUsuarioById(int id) {
-			return UsuarioPersistencia.getInstance().getUsuarioById(id);
-		}
-	
-	//retorna um usuário ao receber seu username
-		public Usuario getUsuarioByUsername(String username) {
-			return UsuarioPersistencia.getInstance().getUsuarioByUsername(username);
+	//retorna um usuário ao receber seu id (seu username)
+		public Usuario getUsuarioById(String username) {
+			return UsuarioPersistencia.getInstance().getUsuarioById(username);
 		}
 	
 	//retorna um usuário se a combinação de username e senha estiver cadastrada
@@ -67,6 +62,10 @@ public class Fachada {
 			return UsuarioPersistencia.getInstance().getAmigos(user);
 		}
 		
+	//Retorna lista de amigos de usuário
+		public List<Comunidade> getComunidades(Usuario user)	{
+			return UsuarioPersistencia.getInstance().getComunidades(user);
+		}
 	//Deleta instância de usuário no banco (Tem que implementar direitinho)
 		public void deletarUsuario(Usuario user) {
 			UsuarioPersistencia.getInstance().deletarUsuario(user);
@@ -81,14 +80,9 @@ public class Fachada {
 			ComunidadePersistencia.getInstance().salvarComunidade(com);
 		}
 		
-	//Retorna uma comunidade ao receber seu nome
-		public Comunidade getComunidadeByNome(String nome) {
-			return ComunidadePersistencia.getInstance().getComunidadeByNome(nome);
-		}
-		
-	//Retorna um usuário ao receber seu id
-		public Comunidade getComunidadeById(int id) {
-			return ComunidadePersistencia.getInstance().getComunidadeById(id);
+	//Retorna um usuário ao receber seu id (seu nome)
+		public Comunidade getComunidadeById(String nome) {
+			return ComunidadePersistencia.getInstance().getComunidadeById(nome);
 		}
 		
 	//Inclui usuário em uma comunidade

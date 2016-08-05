@@ -44,12 +44,12 @@ public class ComunidadePersistencia extends Persistencia{
 		}
 	
 	//Retorna um usuário ao receber seu id
-		public Comunidade getComunidadeById(int id) {
+		public Comunidade getComunidadeById(String nome) {
 			Comunidade com = null;
 			manager = factory.createEntityManager();
 			
 			try {
-				com = manager.find(Comunidade.class, id);
+				com = manager.find(Comunidade.class, nome);
 				manager.close();
 			}  catch (HibernateException e) {
 				e.printStackTrace();
@@ -58,29 +58,7 @@ public class ComunidadePersistencia extends Persistencia{
 			
 			return com;
 		}
-	
-	//Retorna uma comunidade ao receber seu nome	
-		public Comunidade getComunidadeByNome(String nome) {
-			manager = factory.createEntityManager();
-			List<Comunidade> coms = null;
-			try {
-				coms = (List<Comunidade>) manager.createQuery("SELECT c FROM Comunidade c WHERE c.nome = :nome")
-				.setParameter("nome", nome)
-				.getResultList();
-				manager.close();
-			}  catch (HibernateException e) {
-				e.printStackTrace();
-				manager.getTransaction().rollback();
-			}	
-			
-			try {
-				return coms.get(0);
-			} catch(IndexOutOfBoundsException e) {
-				System.out.println("Comunidade não encontrada!");
-				return null;
-			}
-		}
-		
+
 	//Inclui usuário em uma comunidade
 		public void incluirMembro(Comunidade com, Usuario user, boolean confirmado) {
 			manager = factory.createEntityManager();

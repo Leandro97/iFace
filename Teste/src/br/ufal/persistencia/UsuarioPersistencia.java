@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import org.hibernate.HibernateException;
 
 import br.ufal.modelo.Amizade;
+import br.ufal.modelo.Comunidade;
 import br.ufal.modelo.Usuario;
 
 public class UsuarioPersistencia extends Persistencia{
@@ -42,13 +43,13 @@ public class UsuarioPersistencia extends Persistencia{
 			}
 		}
 		
-		//Retorna um usuário ao receber seu id
-		public Usuario getUsuarioById(int id) {
+		//Retorna um usuário ao receber seu id (seu username)
+		public Usuario getUsuarioById(String username) {
 			Usuario user = null;
 			manager = factory.createEntityManager();
 			
 			try {
-				user = manager.find(Usuario.class, id);
+				user = manager.find(Usuario.class, username);
 				manager.close();
 			}  catch (HibernateException e) {
 				e.printStackTrace();
@@ -57,28 +58,6 @@ public class UsuarioPersistencia extends Persistencia{
 			
 			return user;
 		}
-		
-		//Retorna um usuário ao receber seu username
-			public Usuario getUsuarioByUsername(String username) {
-				manager = factory.createEntityManager();
-				List<Usuario> users = null;
-				try {
-					users = (List<Usuario>) manager.createQuery("SELECT u FROM Usuario u WHERE u.username = :username")
-				    .setParameter("username", username)
-				    .getResultList();
-					manager.close();
-				}  catch (HibernateException e) {
-					e.printStackTrace();
-					manager.getTransaction().rollback();
-				}	
-				
-				try {
-					return users.get(0);
-				} catch(IndexOutOfBoundsException e) {
-					System.out.println("Usuário não encontrado!");
-					return null;
-				}
-			}
 		
 		//Retorna um usuário se a combinação de username e senha estiver cadastrada
 		public Usuario login(String username, String senha) {
@@ -173,6 +152,28 @@ public class UsuarioPersistencia extends Persistencia{
 				}
 				
 				return amigos1;
+			}
+			
+		//Retorna lista de amigos de usuário
+			public List<Comunidade> getComunidades(Usuario user) {
+				List<Comunidade> coms = null;
+				
+				manager = factory.createEntityManager();
+					
+				try {
+				
+					coms = (List<Comunidade>) manager.createQuery("SELECT cu.comunidade FROM ComunidadeUsuario cu" +
+					" WHERE cu.participante = :user AND cu.confirmado = 1")
+					.setParameter("user", user)
+					.getResultList();
+					
+					manager.close();
+				}  catch (HibernateException e) {
+					e.printStackTrace();
+					manager.getTransaction().rollback();
+				}
+				
+				return coms;
 			}
 			
 		//Deleta instância de usuário no banco (Tem que implementar direitinho)

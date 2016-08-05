@@ -6,17 +6,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
 	
-	@Id
-	@GeneratedValue
-	private int id;
 	private String nome;
+	@Id
 	@Column(unique = true)
 	private String username;
 	private String senha;
@@ -50,14 +47,6 @@ public class Usuario {
 		this.nome = nome;
 		this.username = username;
 		this.senha = senha;
-	}
-
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public String getNome() {

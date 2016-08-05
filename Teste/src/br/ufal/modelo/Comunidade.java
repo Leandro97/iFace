@@ -6,7 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -15,8 +14,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Comunidade {
 	@Id
-	@GeneratedValue
-	private int id;
 	@Column(unique = true)
 	private String nome;
 	private String descricao;
@@ -38,14 +35,6 @@ public class Comunidade {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.dono = dono;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getNome() {
