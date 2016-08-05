@@ -1,10 +1,6 @@
 package br.ufal.main;
 
 
-
-
-
-
 public class Main {
 	public static void main(String[] args) {
 		
@@ -76,7 +72,7 @@ public class Main {
 //		}	
 //		Fachada.getInstance().mensagemParaUsuario(Fachada.getInstance().getUsuarioByUsername("emissor3"), Fachada.getInstance().getUsuarioByUsername("emissor"), "Usuário para Usuário");
 //	
-//		Fachada.getInstance().mensagemParaComunidade(Fachada.getInstance().getUsuarioByUsername("emissor"), Fachada.getInstance().getComunidadeByNome("Teste 1"), "Usuário para Comunidade");
+//		Fachada.getInstance().mensagemParaComunidade(Fachada.getInstance().getUsuarioByUsername("emissor3"), Fachada.getInstance().getComunidadeByNome("Teste 1"), "Usuário para Comunidade");
 //		
 //		Comunidade com2 = new Comunidade("Teste 2", "Teste 2 bem massa", Fachada.getInstance().getUsuarioByUsername("emissor2"));
 //		Fachada.getInstance().salvarComunidade(com2);
@@ -90,6 +86,6 @@ public class Main {
 //			System.out.println(cu.getComunidade().getNome() + ": " + cu.getParticipante().getNome());
 //		}	
 //
-//		Fachada.getInstance().deletarUsuario(Fachada.getInstance().getUsuarioByUsername("emissor2"));
+//	Fachada.getInstance().deletarUsuario(Fachada.getInstance().getUsuarioByUsername("emissor2"));
 	}
 }

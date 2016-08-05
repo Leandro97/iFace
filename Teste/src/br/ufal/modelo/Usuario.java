@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -20,13 +21,13 @@ public class Usuario {
 	private String username;
 	private String senha;
 	
-	@OneToMany(mappedBy = "receptor", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "receptor", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<MensagemUsuario> mensagensURecebidas;
 	
-	@OneToMany(mappedBy = "emissor", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "emissor", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<MensagemUsuario> mensagensUEnviadas;
 	
-	@OneToMany(mappedBy = "emissor", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "emissor", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<MensagemComunidade> mensagensCEnviadas;
 	
 	@OneToMany(mappedBy = "dono", cascade = CascadeType.REMOVE)
