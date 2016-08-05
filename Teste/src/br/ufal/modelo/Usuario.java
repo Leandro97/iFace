@@ -20,25 +20,25 @@ public class Usuario {
 	private String username;
 	private String senha;
 	
-	@OneToMany(mappedBy = "receptor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "receptor", cascade = CascadeType.REMOVE)
 	private List<MensagemUsuario> mensagensURecebidas;
 	
-	@OneToMany(mappedBy = "emissor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "emissor", cascade = CascadeType.REMOVE)
 	private List<MensagemUsuario> mensagensUEnviadas;
 	
-	@OneToMany(mappedBy = "emissor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "emissor", cascade = CascadeType.REMOVE)
 	private List<MensagemComunidade> mensagensCEnviadas;
 	
-	@OneToMany(mappedBy = "dono", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "dono", cascade = CascadeType.REMOVE)
 	private List<Comunidade> comunidadesQuePossuo;
 	
-	@OneToMany(mappedBy = "participante", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "participante", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<ComunidadeUsuario> comunidadesQueParticipo;
 	
-	@OneToMany(mappedBy = "solicitante", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "solicitante", cascade = CascadeType.REMOVE)
 	private List<Amizade> pedidosEnviados;
 	
-	@OneToMany(mappedBy = "solicitado", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "solicitado", cascade = CascadeType.REMOVE)
 	private List<Amizade> pedidosRecebidos;
 	
 	public Usuario() {

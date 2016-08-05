@@ -3,7 +3,6 @@ package br.ufal.persistencia;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
-import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 
@@ -174,10 +173,9 @@ public class UsuarioPersistencia extends Persistencia{
 		//Deleta instância de usuário no banco (Tem que implementar direitinho)
 			public void deletarUsuario(Usuario user) {
 				manager = factory.createEntityManager();
-				manager.getTransaction().begin();
-				Query query = manager.createQuery("DELETE FROM Usuario WHERE id = 6");
 				try {
-					query.executeUpdate();
+					manager.getTransaction().begin();
+					manager.remove(manager.merge(user));
 					manager.getTransaction().commit();
 					manager.close();
 				}  catch (HibernateException e) {
