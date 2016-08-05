@@ -73,10 +73,11 @@ public class ComunidadePersistencia extends Persistencia{
 				manager.getTransaction().rollback();
 			}	
 			
-			if(coms.size() == 0) {
-				return null;
-			} else {
+			try {
 				return coms.get(0);
+			} catch(IndexOutOfBoundsException e) {
+				System.out.println("Comunidade não encontrada!");
+				return null;
 			}
 		}
 		

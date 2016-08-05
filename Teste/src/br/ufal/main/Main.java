@@ -4,6 +4,7 @@ package br.ufal.main;
 
 
 
+
 public class Main {
 	public static void main(String[] args) {
 		
@@ -88,7 +89,7 @@ public class Main {
 //		for(ComunidadeUsuario cu : pendenciasM) {
 //			System.out.println(cu.getComunidade().getNome() + ": " + cu.getParticipante().getNome());
 //		}	
-//		
-		Fachada.getInstance().deletarUsuario(Fachada.getInstance().getUsuarioByUsername("emissor2"));
+//
+//		Fachada.getInstance().deletarUsuario(Fachada.getInstance().getUsuarioByUsername("emissor2"));
 	}
 }

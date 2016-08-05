@@ -72,7 +72,12 @@ public class UsuarioPersistencia extends Persistencia{
 					manager.getTransaction().rollback();
 				}	
 				
-				return users.get(0);
+				try {
+					return users.get(0);
+				} catch(IndexOutOfBoundsException e) {
+					System.out.println("Usuário não encontrado!");
+					return null;
+				}
 			}
 		
 		//Retorna um usuário se a combinação de username e senha estiver cadastrada
