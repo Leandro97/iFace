@@ -40,10 +40,7 @@ public class ComunidadePersistencia extends Persistencia{
 				manager.getTransaction().rollback();
 			} catch (PersistenceException e) {
 				System.out.println("Comunidade já cadastrada!");
-			} finally {
-				manager.close();
 			}
-			
 		}
 	
 	//Retorna um usuário ao receber seu id

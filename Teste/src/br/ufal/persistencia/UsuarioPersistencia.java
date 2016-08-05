@@ -73,11 +73,7 @@ public class UsuarioPersistencia extends Persistencia{
 					manager.getTransaction().rollback();
 				}	
 				
-				if(users.size() == 0) {
-					return null;
-				} else {
-					return users.get(0);
-				}
+				return users.get(0);
 			}
 		
 		//Retorna um usuário se a combinação de username e senha estiver cadastrada
