@@ -9,21 +9,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Mensagem_usuario")
 public class MensagemUsuario {
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
 	private String conteudo;
-	
+
 	@ManyToOne
 	private Usuario emissor;
-	
+
 	@ManyToOne
 	private Usuario receptor;
-	
+
 	public MensagemUsuario() {
 	}
-	
+
 	public MensagemUsuario(String conteudo, Usuario emissor, Usuario receptor) {
 		this.emissor = emissor;
 		this.conteudo = conteudo;
@@ -60,7 +60,6 @@ public class MensagemUsuario {
 
 	public void setEmissor(Usuario emissor) {
 		this.emissor = emissor;
-	}	
-	
-	
+	}
+
 }

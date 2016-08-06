@@ -7,17 +7,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Amizade implements Serializable{
-	
+public class Amizade implements Serializable {
+
 	@Id
 	@ManyToOne
 	private Usuario solicitante;
-	
+
 	@Id
 	@ManyToOne
 	private Usuario solicitado;
 	boolean confirmado;
-	
+
 	public Amizade() {
 	}
 
@@ -49,5 +49,5 @@ public class Amizade implements Serializable{
 
 	public void setConfirmado(boolean confirmado) {
 		this.confirmado = confirmado;
-	}	
+	}
 }

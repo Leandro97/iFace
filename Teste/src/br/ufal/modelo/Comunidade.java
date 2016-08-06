@@ -17,19 +17,19 @@ public class Comunidade {
 	@Column(unique = true)
 	private String nome;
 	private String descricao;
-	
+
 	@ManyToOne
 	private Usuario dono;
 
 	@OneToMany(mappedBy = "receptor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<MensagemComunidade> mensagensRecebidas;
-	
+
 	@OneToMany(mappedBy = "comunidade", cascade = CascadeType.ALL)
 	private List<ComunidadeUsuario> participantes;
-	
+
 	public Comunidade() {
 	}
-	
+
 	public Comunidade(String nome, String descricao, Usuario dono) {
 		super();
 		this.nome = nome;
@@ -65,7 +65,8 @@ public class Comunidade {
 		return mensagensRecebidas;
 	}
 
-	public void setMensagensRecebidas(List<MensagemComunidade> mensagensRecebidas) {
+	public void setMensagensRecebidas(
+			List<MensagemComunidade> mensagensRecebidas) {
 		this.mensagensRecebidas = mensagensRecebidas;
 	}
 

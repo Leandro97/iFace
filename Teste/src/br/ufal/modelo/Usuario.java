@@ -11,66 +11,67 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
-	
+
 	private String nome;
 	@Id
 	@Column(unique = true)
 	private String username;
 	private String senha;
-	
+
 	@OneToMany(mappedBy = "receptor", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<MensagemUsuario> mensagensURecebidas;
-	
+
 	@OneToMany(mappedBy = "emissor", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<MensagemUsuario> mensagensUEnviadas;
-	
+
 	@OneToMany(mappedBy = "emissor", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	private List<MensagemComunidade> mensagensCEnviadas;
-	
+
 	@OneToMany(mappedBy = "dono", cascade = CascadeType.REMOVE)
 	private List<Comunidade> comunidadesQuePossuo;
-	
+
 	@OneToMany(mappedBy = "participante", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<ComunidadeUsuario> comunidadesQueParticipo;
-	
+
 	@OneToMany(mappedBy = "solicitante", cascade = CascadeType.REMOVE)
 	private List<Amizade> pedidosEnviados;
-	
+
 	@OneToMany(mappedBy = "solicitado", cascade = CascadeType.REMOVE)
 	private List<Amizade> pedidosRecebidos;
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
 	private List<Atributo> atributos;
-	
+
 	public Usuario() {
 	}
-	
+
 	public Usuario(String nome, String username, String senha) {
 		super();
 		this.nome = nome;
 		this.username = username;
 		this.senha = senha;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
-	
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getSenha() {
 		return senha;
 	}
-	
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -95,7 +96,8 @@ public class Usuario {
 		return mensagensCEnviadas;
 	}
 
-	public void setMensagensCEnviadas(List<MensagemComunidade> mensagensCEnviadas) {
+	public void setMensagensCEnviadas(
+			List<MensagemComunidade> mensagensCEnviadas) {
 		this.mensagensCEnviadas = mensagensCEnviadas;
 	}
 
@@ -111,7 +113,8 @@ public class Usuario {
 		return comunidadesQueParticipo;
 	}
 
-	public void setComunidadesQueParticipo(List<ComunidadeUsuario> comunidadesQueParticipo) {
+	public void setComunidadesQueParticipo(
+			List<ComunidadeUsuario> comunidadesQueParticipo) {
 		this.comunidadesQueParticipo = comunidadesQueParticipo;
 	}
 

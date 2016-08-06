@@ -10,24 +10,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Mensagem_comunidade")
-public class MensagemComunidade implements Serializable{
-	
+public class MensagemComunidade implements Serializable {
+
 	private String conteudo;
-	
+
 	@Id
 	@GeneratedValue
 	private int id;
-	
+
 	@ManyToOne
 	private Usuario emissor;
-	
+
 	@ManyToOne
 	private Comunidade receptor;
-	
+
 	public MensagemComunidade() {
 	}
-	
-	public MensagemComunidade(Usuario emissor, Comunidade receptor, String conteudo) {
+
+	public MensagemComunidade(Usuario emissor, Comunidade receptor,
+			String conteudo) {
 		this.emissor = emissor;
 		this.conteudo = conteudo;
 		this.receptor = receptor;
@@ -55,7 +56,6 @@ public class MensagemComunidade implements Serializable{
 
 	public void setEmissor(Usuario emissor) {
 		this.emissor = emissor;
-	}	
-	
-	
+	}
+
 }

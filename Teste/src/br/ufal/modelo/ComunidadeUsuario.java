@@ -11,25 +11,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Comunidade_Usuario")
-public class ComunidadeUsuario implements Serializable {	
-	
+public class ComunidadeUsuario implements Serializable {
+
 	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "comunidade_id")
 	@Id
 	private Comunidade comunidade;
-	
+
 	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "participante_id")
 	@Id
 	private Usuario participante;
-	
+
 	private boolean confirmado;
-	
+
 	public ComunidadeUsuario() {
-		
+
 	}
 
-	public ComunidadeUsuario(Comunidade comunidade,Usuario participante, boolean confirmado) {
+	public ComunidadeUsuario(Comunidade comunidade, Usuario participante,
+			boolean confirmado) {
 		this.comunidade = comunidade;
 		this.participante = participante;
 		this.confirmado = confirmado;
@@ -58,5 +59,5 @@ public class ComunidadeUsuario implements Serializable {
 	public void setConfirmado(boolean confirmado) {
 		this.confirmado = confirmado;
 	}
-	
+
 }
