@@ -39,6 +39,9 @@ public class Usuario {
 	@OneToMany(mappedBy = "solicitado", cascade = CascadeType.REMOVE)
 	private List<Amizade> pedidosRecebidos;
 	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
+	private List<Atributo> atributos;
+	
 	public Usuario() {
 	}
 	
@@ -64,7 +67,6 @@ public class Usuario {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
 	public String getSenha() {
 		return senha;
 	}
@@ -111,5 +113,29 @@ public class Usuario {
 
 	public void setComunidadesQueParticipo(List<ComunidadeUsuario> comunidadesQueParticipo) {
 		this.comunidadesQueParticipo = comunidadesQueParticipo;
+	}
+
+	public List<Amizade> getPedidosEnviados() {
+		return pedidosEnviados;
+	}
+
+	public void setPedidosEnviados(List<Amizade> pedidosEnviados) {
+		this.pedidosEnviados = pedidosEnviados;
+	}
+
+	public List<Amizade> getPedidosRecebidos() {
+		return pedidosRecebidos;
+	}
+
+	public void setPedidosRecebidos(List<Amizade> pedidosRecebidos) {
+		this.pedidosRecebidos = pedidosRecebidos;
+	}
+
+	public List<Atributo> getAtributos() {
+		return atributos;
+	}
+
+	public void setAtributos(List<Atributo> atributos) {
+		this.atributos = atributos;
 	}
 }

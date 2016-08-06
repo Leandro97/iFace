@@ -75,7 +75,7 @@ public class ComunidadePersistencia extends Persistencia{
 		}
 		
 	//Retorna lista de usuários que ainda não foram aceitos em uma comunidade
-		public List<ComunidadeUsuario> getMembrosPendentes(Comunidade com) {
+		public List<ComunidadeUsuario> getPedidos(Comunidade com) {
 			List<ComunidadeUsuario> pendencias = null;
 			manager = factory.createEntityManager();
 			
@@ -94,7 +94,7 @@ public class ComunidadePersistencia extends Persistencia{
 		}
 		
 	//Aceita pedido de amizade de um determinado usuário
-		public void aceitarPedidos(ComunidadeUsuario cu) {
+		public void aceitarPedido(ComunidadeUsuario cu) {
 			manager = factory.createEntityManager();
 			try {
 				cu.setConfirmado(true);

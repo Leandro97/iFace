@@ -42,6 +42,21 @@ public class UsuarioPersistencia extends Persistencia{
 				manager.close();
 			}
 		}
+	//Atualiza um usuário
+		public void atualizarUsuario(Usuario user) {
+			manager = factory.createEntityManager();
+					
+			try {
+				manager.getTransaction().begin();
+				manager.merge(user);
+				manager.getTransaction().commit();
+			}  catch (HibernateException e) {
+				e.printStackTrace();
+				manager.getTransaction().rollback();
+			} finally {
+				manager.close();
+			}
+		}	
 		
 		//Retorna um usuário ao receber seu id (seu username)
 		public Usuario getUsuarioById(String username) {
@@ -78,7 +93,7 @@ public class UsuarioPersistencia extends Persistencia{
 		}
 		
 		//Envia pedido de amizade para um usuário
-			public void enviarPedidoDeAmizade(Usuario solicitante, Usuario solicitado, boolean confirmado) {
+			public void enviarPedidoAmizade(Usuario solicitante, Usuario solicitado, boolean confirmado) {
 				manager = factory.createEntityManager();
 				Amizade amizade = new Amizade(solicitante, solicitado, confirmado);
 				try {
@@ -93,7 +108,7 @@ public class UsuarioPersistencia extends Persistencia{
 			}
 			
 		//Retorna lista de pedidos que ainda não foram aceitos
-			public List<Amizade> getPedidosPendentes(Usuario solicitado) {
+			public List<Amizade> getPedidosAmizade(Usuario solicitado) {
 				List<Amizade> pendencias = null;
 				manager = factory.createEntityManager();
 				
@@ -112,7 +127,7 @@ public class UsuarioPersistencia extends Persistencia{
 			}
 			
 		//Aceita pedido de amizade de um determinado usuário
-			public void aceitarPedidos(Amizade am) {
+			public void aceitarPedido(Amizade am) {
 				manager = factory.createEntityManager();
 				try {
 					am.setConfirmado(true);
