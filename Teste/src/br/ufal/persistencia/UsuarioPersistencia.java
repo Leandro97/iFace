@@ -59,8 +59,6 @@ public class UsuarioPersistencia extends Persistencia {
 		}
 	}
 
-	// Retorna lista de atributos do usuário
-
 	// Retorna um usuário ao receber seu id (seu username)
 	public Usuario getUsuarioById(String username) {
 		Usuario user = null;
